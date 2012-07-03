@@ -86,10 +86,13 @@ class QueryBuilder
     {
         $relationName = $form->getName();
         $alias = substr($relationName, 0, 3);
-        $join = $queryBuilder->getRootAlias().'.'.$relationName;
-
+        $join = $queryBuilder->getRootAlias() . '.' . $relationName;
+        $clone = clone $queryBuilder;
+        echo $clone->getDQL();
         if (!isset($this->joins[$join])) {
-            $queryBuilder->leftJoin($join, $alias);
+            if (!$clone->getQuery()->contains("$relationName $alias")) {
+                $queryBuilder->leftJoin($join, $alias);
+            }
             $this->joins[$join] = $alias;
         } else {
             $alias = $this->joins[$join];

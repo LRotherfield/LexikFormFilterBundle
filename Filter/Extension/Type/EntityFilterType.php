@@ -66,7 +66,7 @@ class EntityFilterType extends EntityType implements FilterTypeInterface
                     throw new \Exception(sprintf('Can\'t call method "getId()" on an instance of "%s"', get_class($values['value'])));
                 }
 
-                $paramName = sprintf('%s_param', $field);
+                $paramName = sprintf('%s_param', $alias.$field);
 
                 $queryBuilder->andWhere(sprintf('%s.%s = :%s', $alias, $field, $paramName))
                     ->setParameter($paramName, $values['value']->getId(), \PDO::PARAM_INT);

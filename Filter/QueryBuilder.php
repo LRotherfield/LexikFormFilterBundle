@@ -88,7 +88,7 @@ class QueryBuilder
         $alias = substr($relationName, 0, 3);
         $join = $queryBuilder->getRootAlias() . '.' . $relationName;
         $clone = clone $queryBuilder;
-        echo $clone->getDQL();
+
         if (!isset($this->joins[$join])) {
             if (!$clone->getQuery()->contains("$relationName $alias")) {
                 $queryBuilder->leftJoin($join, $alias);
